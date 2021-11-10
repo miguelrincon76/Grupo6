@@ -30,6 +30,7 @@ class Dashboard extends React.Component {
             name="submit"
             className="btn btn-info btn-md"
             value="Materiales"
+            onClick={(href = "/create-material")}
           />
         </div>
       </React.Fragment>

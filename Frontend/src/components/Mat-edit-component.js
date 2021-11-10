@@ -3,17 +3,16 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 
-export default class CreateMaterial extends Component {
+export default class EditMaterial extends Component {
   constructor(props) {
     super(props);
 
-    // Setting up functions
     this.onChangeMaterialName = this.onChangeMaterialName.bind(this);
     this.onChangeMaterialEmail = this.onChangeMaterialEmail.bind(this);
     this.onChangeMaterialRollno = this.onChangeMaterialRollno.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
-    // Setting up state
+    // State
     this.state = {
       name: "",
       email: "",
@@ -21,7 +20,25 @@ export default class CreateMaterial extends Component {
     };
   }
 
-  onChangeMaterialsName(e) {
+  componentDidMount() {
+    axios
+      .get(
+        "http://localhost:4000/materials/edit-material/" +
+          this.props.match.params.id
+      )
+      .then((res) => {
+        this.setState({
+          name: res.data.name,
+          email: res.data.email,
+          rollno: res.data.rollno,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  onChangeMaterialName(e) {
     this.setState({ name: e.target.value });
   }
 
@@ -43,14 +60,21 @@ export default class CreateMaterial extends Component {
     };
 
     axios
-      .post("http://localhost:4000/materials/create-materials", materialObject)
-      .then((res) => console.log(res.data));
+      .put(
+        "http://localhost:4000/materials/update-material/" +
+          this.props.match.params.id,
+        materialObject
+      )
+      .then((res) => {
+        console.log(res.data);
+        console.log("Material successfully updated");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-    this.setState({
-      name: "",
-      email: "",
-      rollno: "",
-    });
+    // Redirect to Material List
+    this.props.history.push("/material-list");
   }
 
   render() {
@@ -85,7 +109,7 @@ export default class CreateMaterial extends Component {
           </Form.Group>
 
           <Button variant="danger" size="lg" block="block" type="submit">
-            Create Materials
+            Update Material
           </Button>
         </Form>
       </div>

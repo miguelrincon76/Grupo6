@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
-import StudentTableRow from "./S-.StudentTableRow";
+import MaterialTableRow from "./Mat-TableRow";
 
-export default class StudentList extends Component {
+export default class MaterialList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: [],
+      materials: [],
     };
   }
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/students/")
+      .get("http://localhost:4000/materials/")
       .then((res) => {
         this.setState({
-          students: res.data,
+          materials: res.data,
         });
       })
       .catch((error) => {
@@ -25,8 +25,8 @@ export default class StudentList extends Component {
   }
 
   DataTable() {
-    return this.state.students.map((res, i) => {
-      return <StudentTableRow obj={res} key={i} />;
+    return this.state.materials.map((res, i) => {
+      return <MaterialTableRow obj={res} key={i} />;
     });
   }
 

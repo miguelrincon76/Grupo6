@@ -4,11 +4,14 @@ import "bootstrap/dist/css/bootstrap.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
+
 import Cotizacion from "./components/Cotizacion";
-import EditarCuadroCot from "./components/EditarCuadroCot";
 import Presupuesto from "./components/Presupuesto";
 import CuadroAPU from "./components/CuadroAPU";
-import Materiales from "./components/Materiales";
+
+import MaterialList from "./components/Mat-list.component";
+import editMaterial from "./components/Mat-edit-component";
+import createMaterial from "./components/Mat-create.component";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -33,11 +36,6 @@ function App() {
             render={(props) => <Dashboard {...props} />}
           ></Route>
           <Route
-            path="/editarcuadro"
-            exact
-            render={(props) => <EditarCuadroCot {...props} />}
-          ></Route>
-          <Route
             path="/cotizacion"
             exact
             render={(props) => <Cotizacion {...props} />}
@@ -53,9 +51,19 @@ function App() {
             render={(props) => <CuadroAPU {...props} />}
           ></Route>
           <Route
-            path="/materiales"
+            path="/material-list"
             exact
-            render={(props) => <Materiales {...props} />}
+            render={(props) => <MaterialList {...props} />}
+          ></Route>
+          <Route
+            path="/edit-material"
+            exact
+            render={(props) => <editMaterial {...props} />}
+          ></Route>
+          <Route
+            path="/create-material"
+            exact
+            render={(props) => <createMaterial {...props} />}
           ></Route>
         </Switch>
       </Router>
