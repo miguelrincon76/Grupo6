@@ -2,21 +2,24 @@ import React, { Component } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
 import MaterialTableRow from "./Mat-TableRow";
+//servicios
+import { Apiurl } from "../services/apiusuarios";
 
 export default class MaterialList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      materials: [],
+      materiales: [],
     };
   }
 
   componentDidMount() {
+    let url = Apiurl + "/materiales/";
     axios
-      .get("http://localhost:4000/materials/")
+      .get(url)
       .then((res) => {
         this.setState({
-          materials: res.data,
+          materiales: res.data,
         });
       })
       .catch((error) => {
@@ -25,7 +28,7 @@ export default class MaterialList extends Component {
   }
 
   DataTable() {
-    return this.state.materials.map((res, i) => {
+    return this.state.materiales.map((res, i) => {
       return <MaterialTableRow obj={res} key={i} />;
     });
   }
@@ -36,9 +39,11 @@ export default class MaterialList extends Component {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Roll No</th>
+              <th>ID Material</th>
+              <th>Código</th>
+              <th>Descripción</th>
+              <th>Unidad</th>
+              <th>Valor Unitario</th>
               <th>Action</th>
             </tr>
           </thead>

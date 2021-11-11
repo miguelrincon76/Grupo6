@@ -11,14 +11,12 @@ class Dashboard extends React.Component {
             className="btn btn-info btn-md"
             value="Cotizaciones"
           />
-
           <input
             type="submit"
             name="submit"
             className="btn btn-info btn-md"
             value="Presupuestos"
           />
-
           <input
             type="submit"
             name="submit"
@@ -30,7 +28,6 @@ class Dashboard extends React.Component {
             name="submit"
             className="btn btn-info btn-md"
             value="Materiales"
-            onClick={(href = "/create-material")}
           />
         </div>
       </React.Fragment>

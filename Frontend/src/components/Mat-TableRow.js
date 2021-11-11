@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
+//servicios
+import { Apiurl } from "../services/apiusuarios";
 
 export default class MaterialTableRow extends Component {
   constructor(props) {
@@ -10,10 +12,9 @@ export default class MaterialTableRow extends Component {
   }
 
   deleteMaterial() {
+    let url = Apiurl + "/materiales/delete-material/";
     axios
-      .delete(
-        "http://localhost:4000/materials/delete-material/" + this.props.obj._id
-      )
+      .delete(url + this.props.obj._id)
       .then((res) => {
         console.log("Material successfully deleted!");
       })
@@ -25,18 +26,20 @@ export default class MaterialTableRow extends Component {
   render() {
     return (
       <tr>
-        <td>{this.props.obj.name}</td>
-        <td>{this.props.obj.email}</td>
-        <td>{this.props.obj.rollno}</td>
+        <td>{this.props.obj.materialId}</td>
+        <td>{this.props.obj.codigo}</td>
+        <td>{this.props.obj.descripcion}</td>
+        <td>{this.props.obj.unidad}</td>
+        <td>{this.props.obj.valorunit}</td>
         <td>
           <Link
             className="edit-link"
-            to={"/edit-material" + this.props.obj._id}
+            to={"/edit-material/" + this.props.obj._id}
           >
-            Edit
+            Editar
           </Link>
           <Button onClick={this.deleteMaterial} size="sm" variant="danger">
-            Delete
+            Eliminar
           </Button>
         </td>
       </tr>

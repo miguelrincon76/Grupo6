@@ -10,8 +10,8 @@ import Presupuesto from "./components/Presupuesto";
 import CuadroAPU from "./components/CuadroAPU";
 
 import MaterialList from "./components/Mat-list.component";
-import editMaterial from "./components/Mat-edit-component";
-import createMaterial from "./components/Mat-create.component";
+import EditMaterial from "./components/Mat-edit.component";
+import CreateMaterial from "./components/Mat-create.component";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -56,14 +56,14 @@ function App() {
             render={(props) => <MaterialList {...props} />}
           ></Route>
           <Route
-            path="/edit-material"
+            path="/edit-material/:id"
             exact
-            render={(props) => <editMaterial {...props} />}
+            render={(props) => <EditMaterial {...props} />}
           ></Route>
           <Route
             path="/create-material"
             exact
-            render={(props) => <createMaterial {...props} />}
+            render={(props) => <CreateMaterial {...props} />}
           ></Route>
         </Switch>
       </Router>

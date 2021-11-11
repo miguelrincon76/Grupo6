@@ -1,9 +1,12 @@
 //Importar express
-const express = require("express");
+let express = require("express");
 import morgan from "morgan";
 import { createAdmin, createRoles } from "./libs/initialSetup";
 import authRoutes from "./routers/auth.routes";
-const serverRouter = require("./routers/serverRouter");
+
+//const serverRouter = require("./routers/serverRouter");
+
+const materialRoute = require("./routers/material.route");
 
 //Importar mongoose
 const mongoose = require("mongoose");
@@ -15,13 +18,14 @@ const cors = require("cors");
 class Server {
   //constructor
   constructor() {
+    createRoles();
+    createAdmin();
+
     this.conectarBD();
     this.app = express();
     //Indicar el puerto por el que se ejecutará el servidor
     this.app.set("port", process.env.PORT || 4000);
     //Indicar que las solicitudes http se trabajará en JSON
-    createRoles();
-    createAdmin();
     this.app.use(morgan("dev"));
     this.app.use(express.json());
     this.app.use(cors());
@@ -38,12 +42,14 @@ class Server {
         message: "¡ CORRIENDO SERVIDOR MODULO DE COTIZACION APPGESTION !",
       });
     });
-    const serverR = new serverRouter.default();
+    //const serverR = new serverRouter.default();
 
     //añadir las rutas al servidor
-    this.app.use(serverR.router);
+    //this.app.use(serverR.router);
     this.app.use(router);
+
     this.app.use("/api/auth", authRoutes);
+    this.app.use("/materiales", materialRoute);
     //Levantar el servidor/correr el servidor
     this.app.listen(this.app.get("port"), () => {
       console.log("Servidor corriendo por el puerto => ", this.app.get("port"));
@@ -51,6 +57,7 @@ class Server {
   }
 
   conectarBD() {
+    mongoose.Promise = global.Promise;
     mongoose
       .connect(database.db, {
         useNewUrlParser: true,

@@ -35,7 +35,7 @@ class Login extends React.Component {
   };
 
   manejadorBoton = () => {
-    let url = Apiurl + "api/auth/signin?";
+    let url = Apiurl + "/api/auth/signin?";
     axios
       .post(url, this.state.form)
 
